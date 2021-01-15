@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票首页</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+</head>
+<body>
+    {% if latestQuestionList %}
+        <ul>
+        {% for question in latestQuestionList %}
+            <li><a href="{% url 'polls:detail' question.id %}">{{ question.questionText }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>没有投票数据</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>问题详情</title>
+</head>
+<body>
+    <h1>{{ question.questionText }}</h1>
+    {% if errorMessage %}
+        <p>
+            <strong>{{ errorMessage }}</strong>
+        </p>
+    {% endif %}
+
+    <form action="{% url 'polls:vote' question.id %}" method="POST">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choiceText }}</label>
+        {% endfor %}
+        <input type="submit" value="投票">
+    </form>
+</body>
+</html>
